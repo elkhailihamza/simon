@@ -106,10 +106,12 @@ const resetGame = async () => {
 }
 
 document.addEventListener("click", async () => {
+    currentStatus.innerText = '';
     await resetGame();
 }, {once: true})
 
 document.addEventListener("DOMContentLoaded", async () => {
     simon.style.pointerEvents = "none";
+    currentStatus.innerText = 'Click Anywhere to start!';
     sounds.forEach(sound => sound.load());
 })
