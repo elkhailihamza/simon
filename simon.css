@@ -1,0 +1,109 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 16px #393939 solid;
+}
+
+#simon {
+    max-width: 400px;
+    max-height: 400px;
+    min-width: 300px;
+    min-height: 300px;
+    width: 22.5vw;
+    height: 22.5vw;
+    display: grid;
+    gap: 10px;
+    border-radius: 50%;
+    overflow: hidden;
+    grid-template-areas:
+        "top-left top-right"
+        "bottom-left bottom-right";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    position: relative;
+}
+
+.btn {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.btn:hover {
+    transform: scale(0.98);
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+#yellow {
+    background-color: yellow;
+    grid-area: top-left;
+    border-top-left-radius: 100%;
+}
+
+#blue {
+    background-color: blue;
+    grid-area: top-right;
+    border-top-right-radius: 100%;
+}
+
+#red {
+    background-color: red;
+    grid-area: bottom-left;
+    border-bottom-left-radius: 100%;
+}
+
+#green {
+    background-color: green;
+    grid-area: bottom-right;
+    border-bottom-right-radius: 100%;
+}
+
+#gameStatus {
+    flex-grow: 0;
+    font-size: 28px;
+    height: 40%;
+    margin-top: 20px;
+    text-align: center;
+    cursor: default;
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    body {
+        border: none;
+    }
+    #simon {
+        width: 80vw;
+        height: 80vw;
+    }
+}
+
+@media (max-width: 400px) {
+    #simon {
+        width: 70vw;
+        height: 70vw;
+        min-width: 250px;
+        min-height: 250px;
+    }
+}
+
+@media (max-width: 320px) {
+    #simon {
+        width: 60vw;
+        height: 60vw;
+    }
+}
