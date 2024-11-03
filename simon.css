@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
 * {
     box-sizing: border-box;
     margin: 0;
@@ -7,7 +8,9 @@
 body {
     background-color: black;
     color: white;
-    font-family: Arial, serif;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
     height: 100vh;
     display: flex;
     flex-direction: column;
