@@ -101,6 +101,7 @@ const resetGame = async () => {
     level = 0;
     currentPlay = 0;
     currentStatus.innerText = '';
+    currentLevel.innerText = level;
     await randomPlay();
 }
 
@@ -109,5 +110,6 @@ document.addEventListener("click", async () => {
 }, {once: true})
 
 document.addEventListener("DOMContentLoaded", async () => {
+    simon.style.pointerEvents = "none";
     sounds.forEach(sound => sound.load());
 })
