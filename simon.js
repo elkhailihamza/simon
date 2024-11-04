@@ -42,6 +42,8 @@ let selectedDifficulty = 1;
 const difficultyStatic = document.querySelectorAll('.selectedDifficulty');
 let difficultyTimer = time;
 
+const randomInt = (max) => Math.floor(Math.random() * max) + 1;
+
 const randomPlay = async () => {
     if (time > 250) {
         time-=50;
@@ -84,7 +86,6 @@ const playSound = async (soundIndex) => {
     }
 }
 
-const randomInt = (max) => Math.floor(Math.random() * max) + 1;
 
 const play = async (btnId) => {
     await selectBtn(buttons[btnId-1], userTime)
@@ -110,6 +111,16 @@ const nextLevel = async () => {
 
     simon.style.pointerEvents = "none";
     level++;
+
+    if (selectedDifficulty === 4) {
+        if (level === 2) {
+            simon.classList.add('rotate');
+        }
+        if (level % 2 === 0) {
+            simon.style.animationDuration-='0.5s';
+        }
+    }
+
     currentLevel.innerText = level;
     currentPlay = 0;
     currentStatus.innerText = 'Level Up!';
@@ -128,7 +139,16 @@ const resetGame = async () => {
     currentLevel.innerText = level;
 }
 
-const setDifficulty = (difficulty) => {
+const arraysEqual = (arr1, arr2) => {
+    if (arr1.length !== arr2.length) return false;
+    for (let i = 0; i < arr1.length; i++) {
+        if (arr1[i] !== arr2[i]) return false;
+    }
+    return true;
+};
+
+
+const setDifficulty = async (difficulty) => {
     let selection;
     switch (difficulty) {
         case 1:
@@ -154,8 +174,8 @@ const setDifficulty = (difficulty) => {
     difficultyStatic.forEach(e => e.innerText = selection);
 }
 
-const setSelectedDifficulty = (difficulty) => {
-    setDifficulty(difficulty);
+const setSelectedDifficulty = async (difficulty) => {
+    await setDifficulty(difficulty);
     selectedDifficulty = difficulty;
 }
 

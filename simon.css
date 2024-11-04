@@ -221,6 +221,32 @@ body {
     background: #b8b8b8;
 }
 
+.rotate {
+    animation: spin 10s linear infinite;
+}
+
+.fadeIn {
+    animation: fadeIn 2s linear;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 @media (max-width: 768px) {
     #game {
         border: none;
