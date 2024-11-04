@@ -1,7 +1,7 @@
 const plays = [];
 
 let time = 1000;
-const userTime = 200;
+const userTime = 150;
 const transitionTimer = 1500;
 let currentPlay = 0;
 
@@ -39,10 +39,11 @@ const currentStatus = document.getElementById("currentStatus");
 const currentLevel = document.getElementById("level");
 
 let selectedDifficulty = 1;
+const difficultyStatic = document.querySelectorAll('.selectedDifficulty');
 let difficultyTimer = time;
 
 const randomPlay = async () => {
-    if (time > 100) {
+    if (time > 250) {
         time-=50;
     }
     const randomNum = randomInt(4);
@@ -65,7 +66,7 @@ const selectBtn =  async (selectedDiv, duration) => {
 
     if (selectedDifficulty !== 4) {
         selectedDiv.style.background = "white";
-        await timer(duration);
+        await timer(duration)
         selectedDiv.style.background = originalColor;
     }
 }
@@ -91,21 +92,30 @@ const play = async (btnId) => {
         currentPlay++;
 
         if (currentPlay === plays.length) {
-            simon.style.pointerEvents = "none";
-            level++;
-            await playSound(4);
-            currentLevel.innerText = level;
-            currentPlay = 0;
-            currentStatus.innerText = 'Level Up!';
-            await timer(transitionTimer);
-            currentStatus.innerText = '';
-            await randomPlay();
+            await nextLevel();
         }
     } else {
         currentStatus.innerText = "Game Over";
         await playSound(5);
         await endGame();
     }
+}
+
+const transition = async () => {
+    await timer(transitionTimer);
+}
+
+const nextLevel = async () => {
+    await playSound(4);
+
+    simon.style.pointerEvents = "none";
+    level++;
+    currentLevel.innerText = level;
+    currentPlay = 0;
+    currentStatus.innerText = 'Level Up!';
+    await transition();
+    currentStatus.innerText = '';
+    await randomPlay();
 }
 
 const resetGame = async () => {
@@ -119,26 +129,33 @@ const resetGame = async () => {
 }
 
 const setDifficulty = (difficulty) => {
+    let selection;
     switch (difficulty) {
         case 1:
             difficultyTimer = 1000;
+            selection = "Easy";
             break;
         case 2:
             difficultyTimer = 500;
+            selection = "Medium";
             break;
         case 3:
             difficultyTimer = 250;
+            selection = "Hard";
             break;
         case 4:
             difficultyTimer = 150;
+            selection = ':D';
             break;
         default:
             difficultyTimer = 1000;
             break;
     }
+    difficultyStatic.forEach(e => e.innerText = selection);
 }
 
 const setSelectedDifficulty = (difficulty) => {
+    setDifficulty(difficulty);
     selectedDifficulty = difficulty;
 }
 
@@ -150,10 +167,9 @@ const toggleDisplay = (element, displayType = 'flex', desiredType = 'none') => {
 
 const startGame = async () => {
     toggleDisplay(mainMenu, 'none', 'flex');
-    setDifficulty(selectedDifficulty);
     toggleDisplay(game);
     await resetGame();
-    await timer(transitionTimer);
+    await transition();
     await randomPlay();
 };
 

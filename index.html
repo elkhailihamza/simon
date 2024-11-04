@@ -25,6 +25,9 @@
                 <input type="radio" id="d_wow" name="difficulty">
                 <label for="d_wow" onclick="setSelectedDifficulty(4)">:)</label>
             </div>
+            <div>
+                Difficulty: <span class="selectedDifficulty">Easy</span>
+            </div>
             <div id="startGameBtn" onclick="startGame(1)">
                 <h1>Start</h1>
             </div>
@@ -60,6 +63,7 @@
             </div>
             <div>
                 <h2 id="lvlReached"></h2>
+                Difficulty: <span class="selectedDifficulty">Easy</span>
             </div>
             <div id="options">
                 <div onclick="returnToMainMenu()">return</div>
