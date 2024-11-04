@@ -7,23 +7,35 @@
     <link rel="stylesheet" href="simon.css" >
 </head>
 <body>
-    <div id="gameStatus">
-        <span id="currentStatus"></span><br/>
-        <span>Level: <span id="level">0</span></span>
+    <div id="main">
+        <div id="menu">
+            <div id="title">
+                <h1>SIMON</h1>
+            </div>
+            <div id="startGameBtn" onclick="startGame()">
+                <h1>Start</h1>
+            </div>
+        </div>
     </div>
     <div id="game">
-        <div id="simon">
-            <div id="yellow" class="btn" onclick="play(1)">
-                <span></span>
-            </div>
-            <div id="blue" class="btn" onclick="play(2)">
-                <span></span>
-            </div>
-            <div id="red" class="btn" onclick="play(3)">
-                <span></span>
-            </div>
-            <div id="green" class="btn" onclick="play(4)">
-                <span></span>
+        <div id="gameStatus">
+            <span id="currentStatus"></span><br/>
+            <span>Level: <span id="level">0</span></span>
+        </div>
+        <div>
+            <div id="simon">
+                <div id="yellow" class="btn" onclick="play(1)">
+                    <span></span>
+                </div>
+                <div id="blue" class="btn" onclick="play(2)">
+                    <span></span>
+                </div>
+                <div id="red" class="btn" onclick="play(3)">
+                    <span></span>
+                </div>
+                <div id="green" class="btn" onclick="play(4)">
+                    <span></span>
+                </div>
             </div>
         </div>
     </div>
