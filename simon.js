@@ -113,10 +113,10 @@ const nextLevel = async () => {
     level++;
 
     if (selectedDifficulty === 4) {
-        if (level === 2) {
+        if (level === 5) {
             simon.classList.add('rotate');
         }
-        if (level % 2 === 0) {
+        if (level % 5 === 0) {
             simon.style.animationDuration-='0.5s';
         }
     }
