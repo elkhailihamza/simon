@@ -165,7 +165,7 @@ const setDifficulty = async (difficulty) => {
             selection = "Hard";
             break;
         case 4:
-            difficultyTimer = 150;
+            difficultyTimer = 250;
             selection = ':D';
             break;
         default:
