@@ -131,6 +131,7 @@ const nextLevel = async () => {
 
 const resetGame = async () => {
     simon.style.pointerEvents = "none";
+    simon.classList.remove("rotate");
     plays.length = 0;
     level = 0;
     time = difficultyTimer;
