@@ -122,20 +122,12 @@ const setDifficulty = (difficulty) => {
             difficultyTimer = 250;
             break;
         case 4:
-            difficultyTimer = 125;
+            difficultyTimer = 150;
             break;
         default:
             difficultyTimer = 1000;
             break;
     }
-}
-
-const getSelectedDifficulty = () => {
-    const selectedOption = document.querySelector('#difficulty input[type="radio"]:checked');
-    if (selectedOption) {
-        return selectedOption.value;
-    }
-    return null;
 }
 
 const setSelectedDifficulty = (difficulty) => {
