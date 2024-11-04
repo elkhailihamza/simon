@@ -1,7 +1,8 @@
 const plays = [];
 
 let time = 1000;
-let userTime = 200;
+const userTime = 200;
+const transitionTimer = 1500;
 let currentPlay = 0;
 
 let level = 0;
@@ -29,8 +30,11 @@ const sounds = [yellowSound, blueSound, redSound, greenSound, nextLVLSound, fail
 const currentStatus = document.getElementById("currentStatus");
 const currentLevel = document.getElementById("level");
 
+let selectedDifficulty = 1;
+let difficultyTimer = time;
+
 const randomPlay = async () => {
-    if (time > 250) {
+    if (time > 100) {
         time-=50;
     }
     const randomNum = randomInt(4);
@@ -51,9 +55,11 @@ const selectBtn =  async (selectedDiv, duration) => {
 
     await playSound(soundIndex);
 
-    selectedDiv.style.background = "white";
-    await timer(duration);
-    selectedDiv.style.background = originalColor;
+    if (selectedDifficulty !== 4) {
+        selectedDiv.style.background = "white";
+        await timer(duration);
+        selectedDiv.style.background = originalColor;
+    }
 }
 
 const playSound = async (soundIndex) => {
@@ -94,19 +100,51 @@ const play = async (btnId) => {
 
 const resetGame = async () => {
     simon.style.pointerEvents = "none";
-    await timer(time);
+    await timer(transitionTimer);
     plays.length = 0;
     level = 0;
-    time = 1000;
-    level = 0;
+    time = difficultyTimer;
     currentPlay = 0;
     currentStatus.innerText = '';
     currentLevel.innerText = level;
     await randomPlay();
 }
 
+const setDifficulty = (difficulty) => {
+    switch (difficulty) {
+        case 1:
+            difficultyTimer = 1000;
+            break;
+        case 2:
+            difficultyTimer = 500;
+            break;
+        case 3:
+            difficultyTimer = 250;
+            break;
+        case 4:
+            difficultyTimer = 125;
+            break;
+        default:
+            difficultyTimer = 1000;
+            break;
+    }
+}
+
+const getSelectedDifficulty = () => {
+    const selectedOption = document.querySelector('#difficulty input[type="radio"]:checked');
+    if (selectedOption) {
+        return selectedOption.value;
+    }
+    return null;
+}
+
+const setSelectedDifficulty = (difficulty) => {
+    selectedDifficulty = difficulty;
+}
+
 const startGame = async () => {
     document.getElementById("main").remove();
+    setDifficulty(selectedDifficulty);
     await resetGame();
 }
 

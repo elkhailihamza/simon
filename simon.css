@@ -104,8 +104,8 @@ body {
 }
 
 #menu {
-    width: 300px;
-    height: 300px;
+    width: fit-content;
+    height: fit-content;
     display: grid;
     justify-items: center;
     align-content: center;
@@ -147,6 +147,40 @@ body {
     transform: scale(0.96);
 }
 
+#difficulty {
+    display: flex;
+    height: fit-content;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 8px;
+}
+
+#difficulty input[type="radio"] {
+    display: none;
+}
+
+#difficulty label {
+    display: inline-block;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 2px;
+    background-color: #272727;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+#difficulty input[type="radio"]:checked + label {
+    background-color: #ffffff;
+    color: black;
+}
+
+#difficulty label:hover {
+    background-color: #656565;
+}
+
+#difficulty label
+
 @media (max-width: 768px) {
     #game {
         border: none;
@@ -155,9 +189,8 @@ body {
         width: 80vw;
         height: 80vw;
     }
-    #menu {
-        width: 200px;
-        height: 200px;
+    #difficulty {
+        gap: 10px;
     }
     #title h1 {
         font-size: xx-large;
