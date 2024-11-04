@@ -10,6 +10,14 @@ let level = 0;
 const timer = (duration) => new Promise((resolve) => setTimeout(resolve, duration));
 
 const simon = document.getElementById("simon");
+const mainMenu = document.getElementById("main");
+mainMenu.style.display = 'flex'
+
+const game = document.getElementById("game");
+game.style.display = 'none';
+
+const endScreen = document.getElementById("end");
+endScreen.style.display = 'none';
 
 const yellow = document.getElementById("yellow");
 const blue = document.getElementById("blue");
@@ -88,26 +96,26 @@ const play = async (btnId) => {
             await playSound(4);
             currentLevel.innerText = level;
             currentPlay = 0;
-            await timer(time);
+            currentStatus.innerText = 'Level Up!';
+            await timer(transitionTimer);
+            currentStatus.innerText = '';
             await randomPlay();
         }
     } else {
         currentStatus.innerText = "Game Over";
         await playSound(5);
-        await resetGame();
+        await endGame();
     }
 }
 
 const resetGame = async () => {
     simon.style.pointerEvents = "none";
-    await timer(transitionTimer);
     plays.length = 0;
     level = 0;
     time = difficultyTimer;
     currentPlay = 0;
     currentStatus.innerText = '';
     currentLevel.innerText = level;
-    await randomPlay();
 }
 
 const setDifficulty = (difficulty) => {
@@ -134,11 +142,38 @@ const setSelectedDifficulty = (difficulty) => {
     selectedDifficulty = difficulty;
 }
 
+const toggleDisplay = (element, displayType = 'flex', desiredType = 'none') => {
+    if (element.style.display === desiredType) {
+        element.style.display = displayType;
+    }
+};
+
 const startGame = async () => {
-    document.getElementById("main").remove();
+    toggleDisplay(mainMenu, 'none', 'flex');
     setDifficulty(selectedDifficulty);
+    toggleDisplay(game);
     await resetGame();
-}
+    await timer(transitionTimer);
+    await randomPlay();
+};
+
+const endGame = async () => {
+    toggleDisplay(game, 'none', 'flex');
+    toggleDisplay(endScreen, 'flex', 'none');
+    currentStatus.innerText = '';
+    document.getElementById("lvlReached").innerText = level;
+};
+
+const replay = async () => {
+    toggleDisplay(endScreen, 'none', 'flex');
+    await startGame();
+};
+
+
+const returnToMainMenu = () => {
+    toggleDisplay(endScreen, 'none', 'flex');
+    toggleDisplay(mainMenu);
+};
 
 document.addEventListener("DOMContentLoaded", async () => {
     simon.style.pointerEvents = "none";

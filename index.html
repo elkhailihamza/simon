@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Simon Game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="simon.css" >
+    <link rel="stylesheet" href="./simon.css" >
 </head>
 <body>
     <div id="main">
@@ -49,6 +49,21 @@
                 <div id="green" class="btn" onclick="play(4)">
                     <span></span>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div id="end">
+        <div id="screen">
+            <div id="levelCount">
+                <h1>Game Over</h1>
+                <h2>Level Reached</h2>
+            </div>
+            <div>
+                <h2 id="lvlReached"></h2>
+            </div>
+            <div id="options">
+                <div onclick="returnToMainMenu()">return</div>
+                <div onclick="replay()">replay</div>
             </div>
         </div>
     </div>
