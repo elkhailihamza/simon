@@ -78,6 +78,8 @@ const selectBtn = async (selectedDiv, duration) => {
             invisibilityEffectMet = true;
         }
         return;
+    } else {
+        invisibilityEffectMet = false;
     }
 
     selectedDiv.style.background = "white";
