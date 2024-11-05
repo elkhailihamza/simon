@@ -1,7 +1,7 @@
 const plays = [];
 
 let time = 1000;
-const userTime = 150;
+const userTime = 125;
 const transitionTimer = 1500;
 let currentPlay = 0;
 
@@ -37,6 +37,7 @@ const sounds = [yellowSound, blueSound, redSound, greenSound, nextLVLSound, fail
 
 const currentStatus = document.getElementById("currentStatus");
 const currentLevel = document.getElementById("level");
+const effect = document.getElementById("effect");
 
 let selectedDifficulty = 1;
 const difficultyStatic = document.querySelectorAll('.selectedDifficulty');
@@ -60,17 +61,29 @@ const randomPlay = async () => {
     simon.style.pointerEvents = "auto";
 }
 
-const selectBtn =  async (selectedDiv, duration) => {
-    const originalColor = selectedDiv.style.background;
+let isSelected = false;
+let invisibilityEffectMet = false;
+
+const selectBtn = async (selectedDiv, duration) => {
     const soundIndex = buttons.indexOf(selectedDiv);
-
     await playSound(soundIndex);
+    if (isSelected) return;
 
-    if (selectedDifficulty !== 4) {
-        selectedDiv.style.background = "white";
-        await timer(duration)
-        selectedDiv.style.background = originalColor;
+    isSelected = true;
+    const originalColor = selectedDiv.style.background;
+
+    if (selectedDifficulty === 4 && level >= 5) {
+        if (!invisibilityEffectMet) {
+            await writeEffect('Invisibility');
+            invisibilityEffectMet = true;
+        }
+        return;
     }
+
+    selectedDiv.style.background = "white";
+    await timer(duration)
+    selectedDiv.style.background = originalColor;
+    isSelected = false;
 }
 
 const playSound = async (soundIndex) => {
@@ -113,11 +126,14 @@ const nextLevel = async () => {
     level++;
 
     if (selectedDifficulty === 4) {
-        if (level === 5) {
+        if (level === 10) {
             simon.classList.add('rotate');
+            await writeEffect('Spin');
         }
-        if (level % 5 === 0) {
-            simon.style.animationDuration-='0.5s';
+        if (level % 5 === 0 && level >= 15) {
+            let currentDuration = parseFloat(simon.style.animationDuration);
+            simon.style.animationDuration = (currentDuration - 1) + 's';
+            await writeEffect('Speed Up!');
         }
     }
 
@@ -140,15 +156,6 @@ const resetGame = async () => {
     currentLevel.innerText = level;
 }
 
-const arraysEqual = (arr1, arr2) => {
-    if (arr1.length !== arr2.length) return false;
-    for (let i = 0; i < arr1.length; i++) {
-        if (arr1[i] !== arr2[i]) return false;
-    }
-    return true;
-};
-
-
 const setDifficulty = async (difficulty) => {
     let selection;
     switch (difficulty) {
@@ -165,7 +172,7 @@ const setDifficulty = async (difficulty) => {
             selection = "Hard";
             break;
         case 4:
-            difficultyTimer = 250;
+            difficultyTimer = 200;
             selection = ':D';
             break;
         default:
@@ -211,6 +218,12 @@ const returnToMainMenu = () => {
     toggleDisplay(endScreen, 'none', 'flex');
     toggleDisplay(mainMenu);
 };
+
+const writeEffect = async (effectStr) => {
+    effect.innerText = 'Effect: ' + effectStr;
+    await timer(transitionTimer);
+    effect.innerText = '';
+}
 
 document.addEventListener("DOMContentLoaded", async () => {
     simon.style.pointerEvents = "none";
